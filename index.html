@@ -33,7 +33,6 @@
   </head>
 
   <body id="page-top" ng-app="app">
-    
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
       <div class="container">
@@ -43,7 +42,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#about">About</a>
             </li>
             <li class="nav-item">
@@ -51,7 +50,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -59,6 +58,7 @@
 
     <header id="bg-header" class="text-white">
       <div class="container text-center">
+        <img src="assets/receive-cash.png" class="img-fluid" alt="Currency Converter">
         <h1>Currency Converter</h1>
         <!-- <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p> -->
       </div>
@@ -70,7 +70,8 @@
       <section id="app-section">
         <div class="app-cont container">
           <div class="row">
-            <div id="convert-from-group" class="col-6">
+            <div id="convert-from-group" class="col-6" ng-init="image_1 = 'assets/flags/files/png/192-philippines.png'">
+              <img class = "icon" ng-src="{{image_1}}" class="img-fluid" alt="Flag">
               <div class="input-group drop-down-select-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Convert From </span>
@@ -92,7 +93,8 @@
                 <span class="glyphicon glyphicon-menu-right"></span> Convert
               </a> 
             </div> -->
-            <div id="convert-to-group" class="col-6">
+            <div id="convert-to-group" class="col-6" ng-init="image_2 = 'assets/flags/files/png/192-philippines.png'"> 
+              <img class = "icon" ng-src="{{image_2}}" class="img-fluid" alt="Currency Converter">
                 <div class="input-group drop-down-select-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Convert To </span>
@@ -168,23 +170,65 @@
             $scope.amount = 1;
             $scope.currencyIndexFrom = currency;
             $scope.currencyIndexTo = currency2;
+
+            var array_flag=["192-philippines.png","063-japan.png","263-united-states.png","246-india.png","260-united-kingdom.png"]
+            var pre_url = "assets/flags/files/png/";
             $scope.change = function(){
                 $http.get('http://api.fixer.io/latest?base='+$scope.currencyIndexFrom).then(function(res){
+                  if($scope.currencyIndexFrom == "JPY"){
+                    $scope.image_1 = "assets/flags/files/png/063-japan.png";
+                    $scope.valueINR = parseFloat($scope.amount) || 0;
+                  } 
+                  if($scope.currencyIndexFrom == "USD"){
+                    $scope.image_1 = "assets/flags/files/png/263-united-states.png";
+                    $scope.valueINR = parseFloat($scope.amount) || 0;
+                  } 
+                  if($scope.currencyIndexFrom == "PHP"){
+                    $scope.image_1 = "assets/flags/files/png/192-philippines.png";
+                    $scope.valueINR = parseFloat($scope.amount) || 0;
+                  } 
+                  if($scope.currencyIndexFrom == "INR"){
+                    $scope.image_1 = "assets/flags/files/png/246-india.png";
+                    $scope.valueINR = parseFloat($scope.amount) || 0;
+                  } 
+                  if($scope.currencyIndexFrom == "GBP"){
+                    $scope.image_1 = "assets/flags/files/png/260-united-kingdom.png";
+                    $scope.valueINR = parseFloat($scope.amount) || 0;
+                  } 
+
+                  
+
+
+
                     var ratess = $scope.currencyIndexTo;
-                    if($scope.currencyIndexFrom == "")
-                        $scope.amount == 0;
-                    if($scope.currencyIndexFrom == $scope.currencyIndexTo)
-                        $scope.valueINR = parseFloat($scope.amount) || 0;
-                    else if($scope.currencyIndexTo == "JPY")
+                    if($scope.currencyIndexFrom == ""){
+                      $scope.amount == 0;
+                    }
+                    if($scope.currencyIndexTo == "JPY"){
+                      $scope.image_2 = "assets/flags/files/png/063-japan.png";
+                      if($scope.currencyIndexFrom != "JPY")
                         $scope.valueINR = (parseFloat($scope.amount) * res.data.rates.JPY) || 0;
-                    else if($scope.currencyIndexTo == "USD")
+                    }
+                    else if($scope.currencyIndexTo == "USD"){
+                      $scope.image_2 = "assets/flags/files/png/263-united-states.png";
+                      if($scope.currencyIndexFrom != "USD")
                         $scope.valueINR = (parseFloat($scope.amount) * res.data.rates.USD) || 0;
-                    else if($scope.currencyIndexTo == "PHP")
+                    }
+                    else if($scope.currencyIndexTo == "PHP"){
+                      $scope.image_2 = "assets/flags/files/png/192-philippines.png";
+                      if($scope.currencyIndexFrom != "PHP")
                         $scope.valueINR = (parseFloat($scope.amount) * res.data.rates.PHP) || 0;
-                    else if($scope.currencyIndexTo == "INR")
+                    }
+                    else if($scope.currencyIndexTo == "INR"){
+                      $scope.image_2 = "assets/flags/files/png/246-india.png";
+                      if($scope.currencyIndexFrom != "INR")
                         $scope.valueINR = (parseFloat($scope.amount) * res.data.rates.INR) || 0;
-                    else if($scope.currencyIndexTo == "GBP")
+                    }
+                    else if($scope.currencyIndexTo == "GBP"){
+                      $scope.image_2 = "assets/flags/files/png/260-united-kingdom.png";
+                      if($scope.currencyIndexFrom != "GBP")
                         $scope.valueINR = (parseFloat($scope.amount) * res.data.rates.GBP) || 0;
+                    }
 
                     console.log($scope.valueINR);
                     console.log(res);

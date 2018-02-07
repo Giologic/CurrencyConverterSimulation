@@ -12,7 +12,8 @@
 }
 
 #bg-header{
-    background-color: #18bc9c;
+    background-color: #4A81E8;
+    
     /* background-image: url("../assets/Currency.jpg"); */
     /* min-height:100%;
     background:linear-gradient(0deg,rgba(15, 15, 15, 0.116),rgba(58, 58, 58, 0.3)),url("../assets/Currency.jpg");
@@ -32,4 +33,9 @@
 .drop-down-select-group {
     padding-top: 1em;
     padding-bottom: 1em;
+}
+
+.icon{
+    width:8em;
+    height:8em;
 }
